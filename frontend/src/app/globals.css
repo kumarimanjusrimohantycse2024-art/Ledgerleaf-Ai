@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════
+   LedgerLeaf AI — Design System
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Brand Colors */
+  --color-forest-900: #0D2818;
+  --color-forest-800: #14462A;
+  --color-forest-700: #1B5E3C;
+  --color-forest-600: #22764E;
+  --color-forest-500: #2D9F69;
+  --color-forest-400: #4DB880;
+  --color-forest-300: #7DD0A1;
+  --color-forest-200: #B0E4C5;
+  --color-forest-100: #DFF5E8;
+  --color-forest-50: #F0FAF4;
+
+  /* Sage */
+  --color-sage-600: #52796F;
+  --color-sage-500: #6B8F84;
+  --color-sage-400: #84A59D;
+  --color-sage-300: #A7C4BC;
+  --color-sage-200: #CAE0D9;
+  --color-sage-100: #E8F0ED;
+  --color-sage-50: #F5F9F7;
+
+  /* Charcoal */
+  --color-charcoal-900: #1A1A2E;
+  --color-charcoal-800: #232338;
+  --color-charcoal-700: #2E2E42;
+  --color-charcoal-600: #3D3D56;
+  --color-charcoal-500: #52526B;
+  --color-charcoal-400: #72728A;
+  --color-charcoal-300: #9494A8;
+  --color-charcoal-200: #B8B8C8;
+  --color-charcoal-100: #DCDCE6;
+  --color-charcoal-50: #F0F0F5;
+
+  /* Off-white */
+  --color-cream-50: #FAFAF8;
+  --color-cream-100: #F5F5F0;
+  --color-cream-200: #ECEAE2;
+
+  /* Status */
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --color-info: #2563EB;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-cream-50);
+  color: var(--color-charcoal-800);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-charcoal-200); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-charcoal-300); }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+}
