@@ -1,0 +1,28 @@
+# LedgerLeaf AI — Render Blueprint (Backend)
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: ledgerleaf-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements-prod.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_NAME
+        value: LedgerLeaf AI
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./ledgerleaf.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://ledgerleaf-ai.vercel.app
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+    healthCheckPath: /health
+    plan: free
+    region: oregon
