@@ -17,8 +17,8 @@ settings = get_settings()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    # Create tables (dev only; use Alembic in prod)
-    if not settings.is_production:
+    # Create tables: always in dev, and always on serverless (ephemeral /tmp)
+    if not settings.is_production or settings.is_serverless:
         await init_db()
     yield
 
@@ -28,8 +28,8 @@ app = FastAPI(
     version="0.1.0",
     description="AI-powered financial operations platform",
     lifespan=lifespan,
-    docs_url="/docs" if not settings.is_production else None,
-    redoc_url="/redoc" if not settings.is_production else None,
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 # CORS

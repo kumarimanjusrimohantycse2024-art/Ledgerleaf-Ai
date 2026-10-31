@@ -25,8 +25,12 @@ class Settings(BaseSettings):
     secret_key: str = "dev-secret-change-in-production"
     cors_origins: str = "http://localhost:3000"
 
-    # Database
-    database_url: str = "sqlite+aiosqlite:///./ledgerleaf.db"
+    # Database — on Vercel serverless, only /tmp is writable
+    database_url: str = (
+        "sqlite+aiosqlite:////tmp/ledgerleaf.db"
+        if os.environ.get("VERCEL")
+        else "sqlite+aiosqlite:///./ledgerleaf.db"
+    )
 
     # Supabase Auth
     supabase_url: str = ""
@@ -72,6 +76,10 @@ class Settings(BaseSettings):
     @property
     def is_sqlite(self) -> bool:
         return "sqlite" in self.database_url
+
+    @property
+    def is_serverless(self) -> bool:
+        return bool(os.environ.get("VERCEL"))
 
 
 @lru_cache()
