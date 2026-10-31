@@ -10,12 +10,5 @@
       "src": "/(.*)",
       "dest": "app/main.py"
     }
-  ],
-  "regions": ["iad1"],
-  "functions": {
-    "app/main.py": {
-      "maxDuration": 30,
-      "memory": 512
-    }
-  }
+  ]
 }
