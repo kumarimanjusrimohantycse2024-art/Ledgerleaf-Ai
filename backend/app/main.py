@@ -17,9 +17,8 @@ settings = get_settings()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    # Create tables: always in dev, and always on serverless (ephemeral /tmp)
-    if not settings.is_production or settings.is_serverless:
-        await init_db()
+    # Always create tables on startup — required for Render production service
+    await init_db()
     yield
 
 

@@ -1,12 +1,19 @@
 "use client";
 import { Shield, Users, Mail, Crown, UserCheck } from "lucide-react";
 import { useEffect, useState } from "react";
-import { authApi } from "@/lib/api";
+import { authApi, getOrgId } from "@/lib/api";
 
 export default function TeamPage() {
   const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => { authApi<any[]>("/api/v1/auth/members").then(setMembers).catch(() => {}).finally(() => setLoading(false)); }, []);
+  useEffect(() => {
+    const orgId = getOrgId();
+    if (!orgId) { setLoading(false); return; }
+    authApi<any[]>(`/api/v1/auth/organizations/${orgId}/members`)
+      .then(setMembers)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   const roleIcon = (role: string) => role === "owner" ? <Crown className="w-3.5 h-3.5 text-warning" /> : <UserCheck className="w-3.5 h-3.5 text-forest-600" />;
 
@@ -20,8 +27,8 @@ export default function TeamPage() {
           {members.map((m: any) => (
             <div key={m.id} className="flex items-center justify-between px-5 py-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-forest-100 rounded-full flex items-center justify-center text-sm font-bold text-forest-700">{m.full_name?.charAt(0) || "U"}</div>
-                <div><p className="text-sm font-semibold text-charcoal-800">{m.full_name}</p><p className="text-xs text-charcoal-400 flex items-center gap-1"><Mail className="w-3 h-3" />{m.email}</p></div>
+                <div className="w-10 h-10 bg-forest-100 rounded-full flex items-center justify-center text-sm font-bold text-forest-700">{m.user?.full_name?.charAt(0) || "U"}</div>
+                <div><p className="text-sm font-semibold text-charcoal-800">{m.user?.full_name || "Unknown"}</p><p className="text-xs text-charcoal-400 flex items-center gap-1"><Mail className="w-3 h-3" />{m.user?.email}</p></div>
               </div>
               <span className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-sage-100 text-charcoal-600">{roleIcon(m.role)} {m.role}</span>
             </div>

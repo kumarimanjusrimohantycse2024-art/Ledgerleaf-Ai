@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     app_env: Literal["development", "staging", "production"] = "development"
     debug: bool = True
     secret_key: str = "dev-secret-change-in-production"
-    cors_origins: str = "http://localhost:3000"
+    cors_origins: str = "http://localhost:3000,https://ledgerleaf-ai.vercel.app,https://ledgerleaf-ai-git-main-kumarimanjusrimohantycse2024-arts-projects.vercel.app"
 
     # Database — on Vercel serverless, only /tmp is writable
     database_url: str = (

@@ -11,7 +11,8 @@ export default function ExpensesPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [form, setForm] = useState({ description: "", merchant: "", amount: "", tax_amount: "0", expense_date: "", category_id: "", payment_method: "", notes: "" });
+  const today = new Date().toISOString().split("T")[0];
+  const [form, setForm] = useState({ description: "", merchant: "", amount: "", tax_amount: "0", expense_date: today, category_id: "", payment_method: "", notes: "" });
 
   const load = () => { setLoading(true); authApi("/api/v1/expenses").then(setExpenses).catch(() => {}).finally(() => setLoading(false)); };
   useEffect(() => { load(); authApi<any[]>("/api/v1/categories").then(setCategories).catch(() => {}); }, []);
@@ -20,7 +21,7 @@ export default function ExpensesPage() {
     e.preventDefault(); setSaving(true); setError("");
     try {
       if (!form.description || !form.amount) throw new Error("Description and amount required");
-      await authApi("/api/v1/expenses", { method: "POST", body: JSON.stringify({ ...form, amount: form.amount, tax_amount: form.tax_amount || "0", expense_date: `${form.expense_date}T00:00:00Z`, category_id: form.category_id || undefined }) });
+      await authApi("/api/v1/expenses", { method: "POST", body: JSON.stringify({ ...form, amount: form.amount, tax_amount: form.tax_amount || "0", expense_date: `${form.expense_date || today}T00:00:00Z`, category_id: form.category_id || undefined }) });
       setShowCreate(false); load();
     } catch (e: any) { setError(e.message); } finally { setSaving(false); }
   };

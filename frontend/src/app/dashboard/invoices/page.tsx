@@ -13,8 +13,9 @@ export default function InvoicesPage() {
   const [error, setError] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
+  const today = new Date().toISOString().split("T")[0];
   const [form, setForm] = useState({
-    client_id: "", issue_date: "",
+    client_id: "", issue_date: today,
     due_date: "", notes: "", payment_terms: "",
     line_items: [{ description: "", quantity: "1", unit_price: "", tax_percent: "18", discount_percent: "0" }],
   });
@@ -47,7 +48,7 @@ export default function InvoicesPage() {
         method: "POST",
         body: JSON.stringify({
           client_id: form.client_id,
-          issue_date: `${form.issue_date}T00:00:00Z`,
+          issue_date: `${form.issue_date || today}T00:00:00Z`,
           due_date: `${form.due_date}T00:00:00Z`,
           notes: form.notes || undefined,
           payment_terms: form.payment_terms || undefined,
