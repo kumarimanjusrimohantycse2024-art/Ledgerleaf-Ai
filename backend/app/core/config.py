@@ -5,6 +5,7 @@ import os
 from functools import lru_cache
 from typing import Literal
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -64,6 +65,18 @@ class Settings(BaseSettings):
     # Stripe
     stripe_secret_key: str = ""
     stripe_webhook_secret: str = ""
+
+    @model_validator(mode="after")
+    def force_tmp_sqlite_on_serverless(self) -> Settings:
+        """On Vercel Serverless / AWS Lambda, the root filesystem is read-only. Force SQLite to /tmp."""
+        is_lambda = bool(
+            os.environ.get("VERCEL")
+            or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
+            or os.environ.get("LAMBDA_TASK_ROOT")
+        )
+        if is_lambda and "sqlite" in self.database_url:
+            self.database_url = "sqlite+aiosqlite:////tmp/ledgerleaf.db"
+        return self
 
     @property
     def is_production(self) -> bool:
