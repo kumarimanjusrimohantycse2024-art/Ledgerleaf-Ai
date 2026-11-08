@@ -10,8 +10,8 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    authApi("/api/v1/auth/me")
-      .then((data: { full_name?: string; email?: string }) => {
+    authApi<{ full_name?: string; email?: string }>("/api/v1/auth/me")
+      .then((data) => {
         setProfile(data);
         setName(data?.full_name ?? "");
       })
