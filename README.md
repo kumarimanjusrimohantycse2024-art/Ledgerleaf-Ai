@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ledgerleaf-ai.vercel.app"><img src="https://img.shields.io/badge/🌿_Live_Demo-ledgerleaf--ai.vercel.app-22764E?style=for-the-badge" alt="Live Demo" /></a>
+  <a href="https://ledgerleaf-app.vercel.app"><img src="https://img.shields.io/badge/🌿_Live_Demo-ledgerleaf--app.vercel.app-22764E?style=for-the-badge" alt="Live Demo" /></a>
 </p>
 
 <p align="center">
@@ -34,10 +34,12 @@
 
 ## 🌐 Live Demo
 
-| | URL |
-|---|---|
-| 🖥️ **Frontend App** | **[https://ledgerleaf-ai.vercel.app](https://ledgerleaf-ai.vercel.app)** |
-| 📡 **Backend API Docs** | Deploy to Railway/Render ([guide](docs/DEPLOYMENT.md)) |
+| Service | URL | Status |
+|---|---|---|
+| 🖥️ **Live Web App (Primary)** | **[https://ledgerleaf-app.vercel.app](https://ledgerleaf-app.vercel.app)** | 🟢 Active & Verified |
+| 🖥️ **Live Web App (Domain)** | **[https://ledgerleaf-ai.vercel.app](https://ledgerleaf-ai.vercel.app)** | 🟢 Active |
+| 📡 **Backend API** | **[https://backend-jet-nine-56.vercel.app](https://backend-jet-nine-56.vercel.app)** | 🟢 Active |
+| 📖 **API Docs (Swagger)** | **[https://backend-jet-nine-56.vercel.app/docs](https://backend-jet-nine-56.vercel.app/docs)** | 🟢 Interactive Docs |
 
 > **Try it out:** Register → Create a workspace → Explore the dashboard, invoices, expenses, AI assistant, and more.
 
